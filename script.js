@@ -108,20 +108,12 @@ const gameFlow =  (function() {
              if ((board[0][2]===board[1][1] && board[1][1]===board[2][0] && board[0][2]!==null) )  end=true;
 
     }
-
-      for (let i=0;i<3;i++) {
-        for (let j=0;j<3;j++) {
-            if (board[i][j]!=null)
-                checkFull++;
-            if (checkFull==8) end=true;
-        }
-      }
-      console.log(checkFull)
+    
 
     return end;
 }
 
-    return {checkTris, getTurno, getChiTocca,setChiTocca,checkFull}
+    return {checkTris, getTurno, getChiTocca,setChiTocca}
     
 }) ();
 
@@ -132,6 +124,7 @@ const player2 = player(prompt("Giocatore 2 - Digita il tuo nome: "),"O");
 
    while (!gameFlow.checkTris(gameBoard.getBoard()))
 
+{    
     if (gameFlow.getChiTocca()==1) {
         console.log(player1.makeMove(prompt(`${player1.getNome()} muove -->  Riga: `,0),prompt(`Colonna: `,0)));
         console.log(gameBoard.getBoard());
@@ -143,6 +136,15 @@ const player2 = player(prompt("Giocatore 2 - Digita il tuo nome: "),"O");
         console.log(gameBoard.getBoard());
         gameFlow.setChiTocca();
     }
+
+    for (let i=0;i<3;i++) {
+        for (let j=0;j<3;j++) {
+            
+        }
+    }
+}
+
+
 
 
 
