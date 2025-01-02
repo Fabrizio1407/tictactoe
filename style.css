@@ -1,0 +1,19 @@
+body {
+    background-color: azure;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.gridcontainer {
+    display: grid;
+    grid-template: 1fr 1fr 1fr / 1fr 1fr 1fr;
+    width: 600px;
+    height: 600px;
+}
+
+.cella {
+    border: 1px solid black;
+}

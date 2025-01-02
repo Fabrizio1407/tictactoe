@@ -19,14 +19,18 @@ const gameBoard = ( function() {
     const addSign = function(sign) {
         return function(x,y) {
             
-            if (board[x][y]!=null)
+            if ((x>2) || (x<0) || (y>2) || (y<-1)) {
+                gameFlow.setChiTocca();
+                return "Mossa non valida"
+            } else 
+ {           if ((board[x][y]!=null))
                {gameFlow.setChiTocca();
                 return "Mossa non valida" } 
             else {
                 board[x][y]= sign;
                 return gameFlow.getTurno();
             
-            }   
+            }   }
         }
 
     }
@@ -59,7 +63,7 @@ function player(nomeSel,sign) {
          {risultato = mettiO(x,y)}
          
          
-        return !gameFlow.checkTris(gameBoard.getBoard())? risultato:gameFlow.checkFull==8?"PARI":"VINTO!";
+        return !gameFlow.checkTris(gameBoard.getBoard())? risultato:gameFlow.checkPari(gameBoard.getBoard())?"PARI!":"VINTO!";
     }
 
     const addScore = () => {punteggio++};
@@ -77,11 +81,11 @@ const gameFlow =  (function() {
 
     const getTurno = () => {
         if (chiTocca==1) {
-            let str = `Tocca a ${player1.getNome()}`
+            let str = `Tocca a ` //${player1.getNome()}`
             return str
         }
     else {
-        let str = `Tocca a ${player2.getNome()}`
+        let str = `Tocca a `//${player2.getNome()}`
          return str;
     }};
 
@@ -107,43 +111,79 @@ const gameFlow =  (function() {
              // diagonale 2
              if ((board[0][2]===board[1][1] && board[1][1]===board[2][0] && board[0][2]!==null) )  end=true;
 
+             if ((board[0][0])!==null && 
+                 (board[0][1])!==null && 
+                 (board[0][2])!==null && 
+                 (board[1][0])!==null && 
+                 (board[1][1])!==null && 
+                 (board[1][2])!==null && 
+                 (board[2][0])!==null && 
+                 (board[2][1])!==null && 
+                 (board[2][2])!==null)  end=true;
+
     }
     
 
     return end;
 }
 
-    return {checkTris, getTurno, getChiTocca,setChiTocca}
+const checkPari = (board) => {
+    let full = true;
+    
+    for (let i=0;i<3;i++) {
+        for (let j=0;j<3;j++) {
+            if (board[i][j]==null) {
+                 full=false;
+            }
+        }
+    }
+    return full;
+}
+
+    return {checkTris, checkPari, getTurno, getChiTocca,setChiTocca}
     
 }) ();
 
-const player1 = player(prompt("Giocatore 1 - Digita il tuo nome: "),"X");
-const player2 = player(prompt("Giocatore 2 - Digita il tuo nome: "),"O");
+// const player1 = player(prompt("Giocatore 1 - Digita il tuo nome: "),"X");
+// const player2 = player(prompt("Giocatore 2 - Digita il tuo nome: "),"O");
 
- console.log(` Giocatore 1 = X  --- Giocatore 2 = O \n ${gameFlow.getTurno()}`);
+//  console.log(` Giocatore 1 = X  --- Giocatore 2 = O \n ${gameFlow.getTurno()}`);
 
-   while (!gameFlow.checkTris(gameBoard.getBoard()))
+//    while (!gameFlow.checkTris(gameBoard.getBoard()))
 
-{    
-    if (gameFlow.getChiTocca()==1) {
-        console.log(player1.makeMove(prompt(`${player1.getNome()} muove -->  Riga: `,0),prompt(`Colonna: `,0)));
-        console.log(gameBoard.getBoard());
-        gameFlow.setChiTocca();
+// {    
+//     if (gameFlow.getChiTocca()==1) {
+//         console.log(player1.makeMove(prompt(`${player1.getNome()} muove -->  Riga: `,0),prompt(`Colonna: `,0)));
+//         console.log(gameBoard.getBoard());
+//         gameFlow.setChiTocca();
 
-    } else
-    {
-        console.log(player2.makeMove(prompt(`${player2.getNome()} muove -->  Riga: `,0),prompt(`Colonna: `,0)));
-        console.log(gameBoard.getBoard());
-        gameFlow.setChiTocca();
-    }
+//     } else
+//     {
+//         console.log(player2.makeMove(prompt(`${player2.getNome()} muove -->  Riga: `,0),prompt(`Colonna: `,0)));
+//         console.log(gameBoard.getBoard());
+//         gameFlow.setChiTocca();
+//     }
 
-    for (let i=0;i<3;i++) {
-        for (let j=0;j<3;j++) {
-            
-        }
-    }
-}
 
+// }
+
+
+const displayController = (() => {
+    const celle = document.querySelectorAll(".cella");
+
+    const container = document.querySelector(".container");
+    const testoTurno = document.createElement("h1");
+    testoTurno.textContent="ciao";
+    container.appendChild(testoTurno);
+    
+
+       for (cella of celle) {
+        cella.textContent = "X";
+       }
+
+  //  const addMarker = function()
+
+})()
 
 
 
